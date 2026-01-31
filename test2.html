@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина по географии</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .question-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background-color: #f9f9f9;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background-color: #e3f2fd;
+        }
+
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .score {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+<a href="test1.html"><img src="https://w7.pngwing.com/pngs/864/13/png-transparent-computer-icons-restart-miscellaneous-angle-text.png" width='117px' height='78px'></a> 
+    <h1>Викторина по географии</h1>
+
+    <div class="quiz-container">
+        <div class="question" id="question1">
+            <img src="https://avatars.mds.yandex.net/get-altay/13668123/2a00000195adefd4e02babfb36af19fde8ed/XXL_height" alt="Амазонка" class="question-img">
+            <p class="question-text">1. Какая река является самой длинной в Южной Америке?</p>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, true)">Амазонка</div>
+                <div class="option" onclick="checkAnswer(this, false)">Нил</div>
+                <div class="option" onclick="checkAnswer(this, false)">Янцзы</div>
+                <div class="option" onclick="checkAnswer(this, false)">Миссисипи</div>
+            </div>
+        </div>
+
+        <div class="question" id="question2">
+            <img src="https://i.pinimg.com/originals/7c/8a/02/7c8a02f2916b540023b4c5cfb88eccec.jpg" alt="Гора К2" class="question-img">
+            <p class="question-text">2. Какая гора является второй по высоте в мире?</p>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, false)">Эверест</div>
+                <div class="option" onclick="checkAnswer(this, true)">Чогори</div>
+                <div class="option" onclick="checkAnswer(this, false)">Килиманджаро</div>
+                <div class="option" onclick="checkAnswer(this, false)">Аконкагуа</div>
+            </div>
+        </div>
+
+        <div class="question" id="question3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Caravan_in_the_desert.jpg/1599px-Caravan_in_the_desert.jpg" alt="Пустыня Сахара" class="question-img">
+            <p class="question-text">3. Какая пустыня является самой большой в мире?</p>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(this, true)">Сахара</div>
+                <div class="option" onclick="checkAnswer(this, false)">Гоби</div>
+                <div class="option" onclick="checkAnswer(this, false)">Калахари</div>
+                <div class="option" onclick="checkAnswer(this, false)">Атакама</div>
+            </div>
+        </div>
+
+        <button class="submit-btn" onclick="showResult()">Завершить викторину</button>
+        <div class="result hidden">
+            <p class="score">Ваш результат: <span id="score">0</span> из 3</p>
+        </div>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+
+        function checkAnswer(selectedOption, isCorrect) {
+            // Сбрасываем стили всех вариантов ответа
+            const options = selectedOption.parentElement.children;
+            for (let option of options) {
+                option.classList.remove('correct', 'incorrect');
+                option.onclick = null; // Отключаем возможность повторного выбора
+            }
+
+            // Подсвечиваем выбранный ответ
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                correctAnswers++;
+            } else {
+                selectedOption.classList.add('incorrect');
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.result').classList.remove('hidden');
+            document.getElementById('score').textContent = correctAnswers;
+        }
+    </script>
+</body>
+</html>

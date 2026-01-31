@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 5px 0;
+}
+
+.card::before {
+  content: "🔥";
+  font-size: 2.5rem;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.card:nth-child(2)::before {
+  content: "💡";
+}
+
+.card:nth-child(3)::before {
+  content: "🚀";
+}
+
+.card:nth-child(4)::before {
+  content: "🎨";
+}
+
+.card:nth-child(5)::before {
+  content: "🔮";
+}
+.card:nth-child(6)::before {
+  content: "✨";
+}
+.card:nth-child(1) {
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+}
+
+.card:nth-child(2) {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.card:nth-child(3) {
+  background: linear-gradient(135deg, #1e9600, #ff0000);
+}
+
+.card:nth-child(4) {
+  background: linear-gradient(135deg, #8e44ad, #3498db);
+}
+
+.card:nth-child(5) {
+  background: linear-gradient(135deg, #ff00cc, #333399);
+}
+
+.card:nth-child(6) {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+.card {
+  width: 320px;
+  height: 300px;
+  border-radius: 15px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+    font-weight: bold;
+  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
