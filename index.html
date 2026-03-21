@@ -1,7 +1,747 @@
-<link href="./style.css" rel="stylesheet">
-<link href="./style1.css" rel="stylesheet">
-<p class="text">Викторины по географии</p><link href="css2" rel="stylesheet">
-<div class="card"><a href="victorina1.html"> Викторина на знание городов мира</a></div>
-<div class="card"><a href="victorina2.html"><font color="red"> Викторина на занание достопримечательностей мира</font></a> </div>
-<div class="card"><a href="test1.html"><font color="red">Тест на географические знания</font> </a></div>
-<div class="card"><a href="test2.html">Тест на географические знания </a></div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Гомбоев Тимур | Киберспортсмен CS2</title>
+    <!-- Google Fonts & Font Awesome -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05070a;
+            color: #ededee;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* градиентный фон с динамикой */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 70, 85, 0.08) 0%, rgba(0, 0, 0, 0) 70%),
+                        radial-gradient(circle at 80% 70%, rgba(0, 200, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* текстура carbon (легкий намёк) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.03"><path fill="none" stroke="%23ffffff" stroke-width="0.5" d="M0 0 L200 0 M0 10 L200 10 M0 20 L200 20 M0 30 L200 30 M0 40 L200 40 M0 50 L200 50 M0 60 L200 60 M0 70 L200 70 M0 80 L200 80 M0 90 L200 90 M0 100 L200 100 M0 110 L200 110 M0 120 L200 120 M0 130 L200 130 M0 140 L200 140 M0 150 L200 150 M0 160 L200 160 M0 170 L200 170 M0 180 L200 180 M0 190 L200 190 M10 0 L10 200 M20 0 L20 200 M30 0 L30 200 M40 0 L40 200 M50 0 L50 200 M60 0 L60 200 M70 0 L70 200 M80 0 L80 200 M90 0 L90 200 M100 0 L100 200 M110 0 L110 200 M120 0 L120 200 M130 0 L130 200 M140 0 L140 200 M150 0 L150 200 M160 0 L160 200 M170 0 L170 200 M180 0 L180 200 M190 0 L190 200"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* контейнер */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* навигация */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0 16px;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FF4655, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: #ffffffcc;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #e0e0e0;
+            transition: 0.25s ease;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #FF4655;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #FF4655;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* секции общие */
+        section {
+            padding: 80px 0 70px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 48px;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF4655, #ff8c00);
+            border-radius: 4px;
+        }
+
+        /* HERO */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            min-height: 85vh;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-badge {
+            background: rgba(255, 70, 85, 0.2);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 70, 85, 0.4);
+            backdrop-filter: blur(4px);
+            margin-bottom: 20px;
+        }
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .hero-content h1 span {
+            background: linear-gradient(120deg, #FF4655, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero-role {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            margin-bottom: 24px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 28px;
+            margin: 30px 0 24px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            padding: 10px 18px;
+            border-radius: 28px;
+            border-left: 2px solid #FF4655;
+        }
+        .stat-number {
+            font-weight: 800;
+            font-size: 1.5rem;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 16px;
+        }
+        .btn-primary, .btn-outline {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.25s;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #FF4655, #e63e4c);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 70, 85, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(255, 70, 85, 0.4);
+            background: linear-gradient(95deg, #ff5a68, #ff4655);
+        }
+        .btn-outline {
+            border: 1.5px solid #FF4655;
+            color: #FF4655;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 70, 85, 0.1);
+            transform: translateY(-2px);
+        }
+    
+        .avatar-card {
+            background: linear-gradient(145deg, rgba(20,20,30,0.7), rgba(0,0,0,0.5));
+            backdrop-filter: blur(10px);
+            border-radius: 60px 60px 40px 40px;
+            padding: 20px 20px 30px;
+            text-align: center;
+            border: 1px solid rgba(255,70,85,0.3);
+            width: 280px;
+            box-shadow: 0 20px 35px -10px black;
+        }
+        .avatar-icon {
+           
+            background: url("https://i.pinimg.com/736x/c6/ca/49/c6ca4994508629ec2ace2feedcb7abeb.jpg");
+            background-size: 100% ;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 2px solid #0d0394;
+        }
+
+        /* about 2 колонки */
+        .about-grid {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .about-text {
+            flex: 1.2;
+        }
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #cfcfcf;
+        }
+        .skills-box {
+            flex: 1;
+            background: rgba(12,12,20,0.5);
+            backdrop-filter: blur(6px);
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .progress-bar {
+            background: #2a2a35;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #FF4655, #ff8c5a);
+            width: 0%;
+            height: 100%;
+            border-radius: 10px;
+            transition: 1s ease;
+        }
+
+        /* достижения карточки */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .ach-card {
+            background: rgba(10,10,18,0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 28px;
+            padding: 28px 24px;
+            transition: 0.25s;
+            border: 1px solid rgba(255,70,85,0.2);
+        }
+        .ach-card:hover {
+            transform: translateY(-8px);
+            border-color: #FF4655;
+            box-shadow: 0 15px 30px -12px rgba(255,70,85,0.2);
+        }
+        .ach-icon {
+            font-size: 2.2rem;
+            color: #FF4655;
+            margin-bottom: 18px;
+        }
+        .ach-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .ach-date {
+            color: #FF4655;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+        .ach-desc {
+            color: #b5b5c0;
+        }
+
+        /* контакты + соцсети */
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .social-links {
+            display: flex;
+            gap: 24px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            background: rgba(255,255,255,0.05);
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            transition: 0.25s;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: #FF4655;
+            color: white;
+            transform: scale(1.07);
+        }
+        .contact-detail {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .contact-detail i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,70,85,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: #FF4655;
+        }
+        .contact-form {
+            flex: 1;
+            background: rgba(20,20,28,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .input-group {
+            margin-bottom: 18px;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #2c2c3a;
+            padding: 14px 18px;
+            border-radius: 28px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            transition: 0.2s;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #FF4655;
+        }
+        button[type="submit"] {
+            background: #FF4655;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #ff6572;
+            transform: scale(0.98);
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #6c6c7a;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 860px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .navbar {
+                flex-direction: column;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .section-title {
+                display: block;
+                text-align: center;
+            }
+            .about-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="navbar">
+            <div class="logo">GOMBOEV<span> | T1MUR</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#achievements">Достижения</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero секция -->
+        <section id="home">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-crosshairs"></i>  GOOD PLAYER • CS2
+                    </div>
+                    <h1>Гомбоев <span>Тимур</span></h1>
+                    <div class="hero-role">
+                        <i class="fas fa-trophy"></i>  T1muR0x
+                    </div>
+                    <p style="max-width: 550px; margin-bottom: 20px;">Простой любитель игры кс 2 ежедневно играю 5+ часов . Основное оружее которое я предпочитаю в игре - AWP</p>
+                    <div class="hero-stats">
+                        <div class="stat"><span class="stat-number">300</span><span class="stat-label">FACEIT ELO</span></div>
+                        <div class="stat"><span class="stat-number">1.12</span><span class="stat-label">KD RATIO</span></div>
+                        <div class="stat"><span class="stat-number">55%</span><span class="stat-label">WIN RATE</span></div>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#achievements" class="btn-primary"><i class="fas fa-medal"></i>  Мои титулы</a>
+                        <a href="#contact" class="btn-outline"><i class="fas fa-comment-dots"></i>  Связаться</a>
+                    </div>
+                </div>
+                <div class="hero-avatar">
+                    <div class="avatar-card">
+                        <div class="avatar-icon">
+                            
+                        </div>
+                        <h3>GOMBOEV <span style="color:#FF4655">T1MUR</span></h3>
+                        <p>#CS2 #AWPER</p>
+                        <div style="margin-top: 12px;"><i class="fas fa-map-marker-alt"></i>  Россия / Улан-Удэ</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Обо мне + скиллы -->
+        <section id="about">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Меня зовут <strong>Тимур Гомбоев</strong>, мне 14 лет, и я играю в Counter-Strike 2 на любительском уровне с 2025 года. Начал свой путь в CS2</p>
+                    <p> Каждый день уделяю 8+ часов на тренировки, демки. Моя философия — постоянное развитие, уважение к соперникам и вайб полной самоотдачи.</p>
+                    <p><i class="fas fa-gamepad" style="color:#FF4655"></i>  Любимые карты: Mirage, Inferno, Anubis, Nuke .  |
+                </div>
+                <div class="skills-box">
+                    <h3 style="margin-bottom: 20px;">Профессиональные навыки</h3>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Aim / Механика</span><span>96%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 96%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Тимворк / Коммуникация</span><span>94%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 94%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Стрессоустойчивость (клатчи)</span><span>89%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 89%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Тактическое мышление</span><span>91%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 91%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name"><span>Карта знаний / Utility</span><span>93%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 93%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Достижения -->
+        <section id="achievements">
+            <h2 class="section-title">Турнирные достижения</h2>
+            <div class="achievements-grid">
+                <div class="ach-card">
+                    <div class="ach-icon"><i class="fas fa-crown"></i></div>
+                    <h3></h3>
+                    <div class="ach-date"></div>
+                    <div class="ach-desc"></div>
+                </div>
+                <div class="ach-card">
+                    <div class="ach-icon"><i class="fas fa-medal"></i></div>
+                    <h3></h3>
+                    <div class="ach-date"></div>
+                    <div class="ach-desc"></div>
+                </div>
+                <div class="ach-card">
+                    <div class="ach-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3></h3>
+                    <div class="ach-date"></div>
+                    <div class="ach-desc"></div>
+                </div>
+                <div class="ach-card">
+                    <div class="ach-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>⭐ Личная статистика</h3>
+                    <div class="ach-date">Рекорды CS2</div>
+                    <div class="ach-desc">• 32 фрага в официальном матче <br>• 5 эйсов за один матч <br>• 12 побед на FACEIT подряд </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты и соцсети -->
+        <section id="contact">
+            <h2 class="section-title">Контакты & соцсети</h2>
+            <div class="contact-flex">
+                <div class="contact-info">
+                    <p style="margin-bottom: 18px;">Буду рад новым предложениям, сотрудничеству или просто общению с фанатами CS2. Подписывайся на стримы и следи за моими успехами!</p>
+                    <div class="contact-detail">
+                        <i class="fab fa-discord"></i>
+                        <span>nezox7699</span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <span>gomboevtimur888@gmail.com</span>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fab fa-steam"></i>
+                        <span>https://steamcommunity.com/profiles/76561198771722567/</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 18px;">Напиши мне</h3>
+                    <form id="demoForm" action="#" method="post">
+                        <div class="input-group">
+                            <input type="text" placeholder="Твоё имя" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Email / контакт" required>
+                        </div>
+                        <div class="input-group">
+                            <textarea rows="3" placeholder="Сообщение или вопрос о коллабе..."></textarea>
+                        </div>
+                        <button type="submit">Отправить <i class="fas fa-paper-plane"></i></button>
+                        <p style="font-size: 0.7rem; margin-top: 12px; opacity:0.6">* демонстрационная форма, свяжусь в соцсетях</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Гомбоев Тимур — профессиональный киберспортсмен CS2. Все права защищены.</p>
+        <p style="margin-top: 6px;">#RoadToMajor | Phoenix Esports • Always Clutch</p>
+    </footer>
+</div>
+
+<script>
+    // простая анимация прогресс-баров при прокрутке + активная навигация
+    const skillBars = document.querySelectorAll('.progress-fill');
+    function animateSkills() {
+        skillBars.forEach(bar => {
+            const width = bar.style.width;
+            if (width && window.getComputedStyle(bar).width === '0px') {
+                bar.style.width = width;
+            } else if (!bar.style.width) {
+                const target = bar.getAttribute('style')?.match(/width:\s*(\d+%)/)?.[1];
+                if (target) bar.style.width = target;
+            }
+        });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bars = entry.target.querySelectorAll('.progress-fill');
+                bars.forEach(bar => {
+                    const w = bar.style.width;
+                    if (w && (w === '0%' || getComputedStyle(bar).width === '0px')) {
+                        bar.style.width = w;
+                    } else if (!bar.style.width || getComputedStyle(bar).width === '0px') {
+                        const originalWidth = bar.getAttribute('data-width');
+                        if (originalWidth) bar.style.width = originalWidth;
+                        else {
+                            const parent = bar.closest('.skill-item');
+                            const percentSpan = parent?.querySelector('.skill-name span:last-child');
+                            if (percentSpan) {
+                                let val = percentSpan.innerText.replace('%','');
+                                bar.style.width = val + '%';
+                            } else bar.style.width = '90%';
+                        }
+                    }
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+    const skillsSection = document.querySelector('.skills-box');
+    if (skillsSection) observer.observe(skillsSection);
+
+    // сохранение исходных ширин в data-width
+    document.querySelectorAll('.progress-fill').forEach(bar => {
+        const currentWidth = bar.style.width;
+        if (currentWidth) bar.setAttribute('data-width', currentWidth);
+        else {
+            const parent = bar.closest('.skill-item');
+            const percentSpan = parent?.querySelector('.skill-name span:last-child');
+            if (percentSpan) {
+                let val = percentSpan.innerText.replace('%','');
+                bar.setAttribute('data-width', val + '%');
+            }
+        }
+        bar.style.width = '0%';
+    });
+
+    // активное меню при скролле
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 150;
+            if (pageYOffset >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // обработка формы (демо)
+    const form = document.getElementById('demoForm');
+    if(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Спасибо! Тимур свяжется с тобой в ближайшее время. Следи за соцсетями!');
+            form.reset();
+        });
+    }
+
+    // начальная анимация героя
+    window.addEventListener('load', () => {
+        document.body.style.opacity = '1';
+    });
+</script>
+</body>
+</html>
